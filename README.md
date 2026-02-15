@@ -1,36 +1,24 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SMK
 
-## Getting Started
+**S**chul**m**anagement und -**k**ommunikation
 
-First, run the development server:
+Platform dedicated to school management and communications.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Please note that this is still a work-in-progrss and is currently far from production-ready.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Motivation
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+My school is insanely unorganised and divided in 100s of WhatsApp groups. This platform aims to centralise communications and common management tasks in schools.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Features (or rather roadmap)
 
-## Learn More
+Currently following things are planned (this may or may not change in the future):
 
-To learn more about Next.js, take a look at the following resources:
+- Access levels (student, parent, teacher, principal, etc. but also class/grade based)
+- Announcements/Communications visible only for specific groups/classes/people
+- Calendar (school events)
+- Library catalogue
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Endnote
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project is being developed as a submission to [HackClub](https://hackclub.com/). It is still very much a WIP, this page will get updated whenever necessary but will remain pretty barren for the time being.
