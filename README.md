@@ -18,6 +18,9 @@ Currently following things are planned (this may or may not change in the future
 - Announcements/Communications visible only for specific groups/classes/people
 - Calendar (school events)
 - Library catalogue
+- Teacher directory
+- Clubs directory
+- Event directory
 
 ## Endnote
 

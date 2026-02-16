@@ -19,7 +19,7 @@ import {
     DropdownMenuLabel,
     DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu"
-import { EllipsisVertical, Home, LogOutIcon, User2 } from "lucide-react";
+import { EllipsisVertical, Home, LogOutIcon, Megaphone, User2 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 
 function ProfileButton() {
@@ -48,7 +48,7 @@ function ProfileButton() {
                         <DropdownMenuTrigger asChild>
                             <SidebarMenuButton>
                                 <User2 />
-                                { user.name }
+                                { user.fullName }
                                 <EllipsisVertical className="ml-auto"/>
                             </SidebarMenuButton>
                         </DropdownMenuTrigger>
@@ -62,7 +62,7 @@ function ProfileButton() {
                                 <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                                     <User2 />
                                     <div className="grid flex-1 text-left text-sm leading-tight">
-                                        <span className="truncate font-medium">{user.name}</span>
+                                        <span className="truncate font-medium">{user.fullName}</span>
                                         <span className="truncate text-muted-foreground text-xs">{user.email}</span>
                                     </div>
                                 </div>
@@ -113,6 +113,14 @@ export function AppSidebar() {
                                 <a href="/">
                                     <Home />
                                     <span>Home</span>
+                                </a>
+                            </SidebarMenuButton>
+                        </SidebarMenuItem>
+                        <SidebarMenuItem>
+                            <SidebarMenuButton asChild>
+                                <a href="/announcements">
+                                    <Megaphone />
+                                    <span>Announcements</span>
                                 </a>
                             </SidebarMenuButton>
                         </SidebarMenuItem>
