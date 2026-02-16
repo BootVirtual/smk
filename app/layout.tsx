@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
+import { AuthProvider } from "@/context/AuthContext";
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -31,13 +32,15 @@ export default function RootLayout({
 			<body
 				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
 			>
-				<SidebarProvider>
-					<AppSidebar />
-					<main>
-						<SidebarTrigger />
-						{children}
-					</main>
-				</SidebarProvider>
+				<AuthProvider>
+					<SidebarProvider>
+						<AppSidebar />
+						<main>
+							<SidebarTrigger />
+							{children}
+						</main>
+					</SidebarProvider>
+				</AuthProvider>
 			</body>
 		</html>
 	);

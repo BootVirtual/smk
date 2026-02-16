@@ -12,11 +12,27 @@ import {
     SidebarMenuSkeleton,
     useSidebar,
 } from "@/components/ui/sidebar"
-import { Home, User2 } from "lucide-react";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuTrigger
+} from "@/components/ui/dropdown-menu"
+import { EllipsisVertical, Home, LogOutIcon, User2 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 
 function ProfileButton() {
     const { user, loading, logout } = useAuth();
+        const {
+        state,
+        open,
+        setOpen,
+        openMobile,
+        setOpenMobile,
+        isMobile,
+        toggleSidebar,
+    } = useSidebar();
 
     if (loading) {
         return (
@@ -28,9 +44,34 @@ function ProfileButton() {
         if (user) {
             return (
                 <SidebarMenuItem>
-                    <SidebarMenuButton onClick={logout}>
-                        <User2 /> { user.name }
-                    </SidebarMenuButton>
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <SidebarMenuButton>
+                                <User2 />
+                                { user.name }
+                                <EllipsisVertical className="ml-auto"/>
+                            </SidebarMenuButton>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent
+                            className="w-[--radix-popper-anchor-width] min-w-56 rounded-lg"
+                            side={isMobile ? "bottom" : "right"}
+                            align="end"
+                            sideOffset={4}
+                        >
+                            <DropdownMenuLabel className="font-normal p-0">
+                                <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
+                                    <User2 />
+                                    <div className="grid flex-1 text-left text-sm leading-tight">
+                                        <span className="truncate font-medium">{user.name}</span>
+                                        <span className="truncate text-muted-foreground text-xs">{user.email}</span>
+                                    </div>
+                                </div>
+                            </DropdownMenuLabel>
+                            <DropdownMenuItem variant="destructive" onClick={ logout }>
+                                <LogOutIcon /> Log out
+                            </DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
                 </SidebarMenuItem>
             )
         } else {
@@ -39,7 +80,7 @@ function ProfileButton() {
                     <SidebarMenuButton asChild>
                         <a href="/login">
                             <User2 />
-                            <span>Log in</span>
+                            Log in
                         </a>
                     </SidebarMenuButton>
                 </SidebarMenuItem>
