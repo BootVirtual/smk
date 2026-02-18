@@ -8,18 +8,24 @@ import {
     EmptyMedia,
     EmptyTitle
 } from "@/components/ui/empty";
-import { Megaphone } from "lucide-react";
+import { Megaphone, UserRoundKey } from "lucide-react";
 import {
     Card,
     CardContent,
     CardHeader
 } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useAuth } from "@/hooks/useAuth";
+import { useRouter } from "next/navigation";
 
 export default function AnnouncementsPage() {
     const { announcements, loading } = useAnnouncements();
+    const { user } = useAuth();
+    const router = useRouter();
 
-    if(loading) {
+    if(!user){
+        router.push('/login');
+    } else if(loading) {
         return (
             <Card className="w-[620px]">
                 <CardHeader>

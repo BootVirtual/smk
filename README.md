@@ -22,6 +22,18 @@ Currently following things are planned (this may or may not change in the future
 - Clubs directory
 - Event directory
 
+### Really-far-away-but-still-planned-features-which-might-or-might-not-happen
+
+- iOS app
+- Android app
+- ~~Windows Phone app??~~
+- Messaging
+- Integrations with other common products in school environments
+
+## Stack
+
+The backend is handled by [appwrite.io](https://appwrite.io/). Frontend is based on next.js with Tailwind CSS and shadcn compnents.
+
 ## Endnote
 
 This project is being developed as a submission to [HackClub](https://hackclub.com/). It is still very much a WIP, this page will get updated whenever necessary but will remain pretty barren for the time being.
