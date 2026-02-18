@@ -4,9 +4,7 @@ import { AnnouncementCard } from "@/components/AnnouncementCard";
 import { useAnnouncements } from "@/hooks/useAnnouncements";
 import {
     Empty,
-    EmptyContent,
     EmptyDescription,
-    EmptyHeader,
     EmptyMedia,
     EmptyTitle
 } from "@/components/ui/empty"
@@ -15,7 +13,7 @@ import { Megaphone } from "lucide-react";
 export default function AnnouncementsPage() {
     const { announcements, loading } = useAnnouncements();
 
-    if(!announcements){
+    if(announcements.length == 0){
         return (
             <Empty>
                 <EmptyTitle>

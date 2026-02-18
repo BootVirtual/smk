@@ -2,23 +2,12 @@
 
 import {
     Card,
-    CardAction,
     CardContent,
     CardDescription,
-    CardFooter,
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
-
-type Announcement = {
-    $id: string
-    title: string
-    content: string
-    authorId: string
-    $createdAt: string
-    targetClasses: string[]
-    targetRoles: string[]    
-};
+import { Announcement } from "@/hooks/useAnnouncements";
 
 interface Props {
     announcement: Announcement
@@ -31,7 +20,13 @@ export function AnnouncementCard({ announcement }: Props){
                 <CardTitle>{announcement.title}</CardTitle>
             </CardHeader>
             <CardDescription>
-                Posted on {announcement.$createdAt} by {announcement.authorId}
+                Posted on {new Date(announcement.$createdAt).toLocaleString(undefined, {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit"
+                })} by {announcement.author.fullName}
             </CardDescription>
             <CardContent>
                 {announcement.content}

@@ -46,30 +46,48 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         try {
             const currentUser = await account.get();
             
-            const userRow = await tablesDB.getRow(DATABASE_ID, USERS_TABLE_ID, currentUser.$id);
+            const userRow = await tablesDB.getRow({
+                databaseId: DATABASE_ID,
+                tableId: USERS_TABLE_ID,
+                rowId: currentUser.$id
+            });
 
             const role = userRow.role;
             let classIds: string[] = [];
 
             if(role === "student") {
-                const studentRow = await tablesDB.getRow(DATABASE_ID, STUDENTS_TABLE_ID, currentUser.$id);
+                const studentRow = await tablesDB.getRow({
+                    databaseId: DATABASE_ID,
+                    tableId: STUDENTS_TABLE_ID,
+                    rowId: currentUser.$id
+                });
 
                 classIds = [studentRow.class];
             } else if (role === "parent") {
-                const parentRow = await tablesDB.getRow(DATABASE_ID, PARENTS_TABLE_ID, currentUser.$id);
+                const parentRow = await tablesDB.getRow({
+                    databaseId: DATABASE_ID,
+                    tableId: PARENTS_TABLE_ID,
+                    rowId: currentUser.$id
+                });
 
                 try{
                     classIds = parentRow.students.map((students: any) => students.class);
-                } catch {
+                } catch (e) {
                     console.log("Error when parsing parent's students");
+                    console.log(e);
                 }
             } else if (role === "teacher") {
-                const assignments = await tablesDB.listRows(DATABASE_ID, CLASSESASSIGNMENTS_TABLE_ID, [Query.equal("teacher", currentUser.$id)]);
+                const assignments = await tablesDB.listRows({
+                    databaseId: DATABASE_ID,
+                    tableId: CLASSESASSIGNMENTS_TABLE_ID,
+                    queries: [Query.equal("teacher", currentUser.$id)]
+                });
 
                 try {
                     classIds = assignments.rows.flatMap((assignment: any) => assignment.class);
-                } catch {
+                } catch (e) {
                     console.log("Error when parsing teacher's classes");
+                    console.log(e);
                 }
             }
 
@@ -80,8 +98,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
                 role,
                 classIds
             });
-        } catch {
+        } catch (e) {
             setUser(null);
+            console.log(e);
         } finally {
             setLoading(false);
         }
