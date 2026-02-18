@@ -18,44 +18,46 @@ interface AuthFormProps {
 
 export function AuthForm({ handleSubmit }: AuthFormProps) {
     return (
-        <Card className="w-full max-w-sm">
-            <CardHeader>
-                <CardTitle>Login to your account</CardTitle>
-                <CardDescription>Enter your email and password below to login to your account</CardDescription>
-            </CardHeader>
-            <form onSubmit={handleSubmit}>
-                <CardContent>
-                    <div className="flex flex-col gap-6">
-                        <div className='grid gap-2'>
-                            <Label htmlFor='email'>Email</Label>
-                            <Input
-                                name="email"
-                                id='email'
-                                type='email'
-                                placeholder='johndoe@example.com'
-                                required
-                            />
-                        </div>
-                        <div className='grid gap-2'>
-                            <div className='flex items-center'>
-                                <Label htmlFor='password'>Password</Label>
-                                <a
-                                    href='#'
-                                    className='ml-auto inline-block text-sm underline-offset-4 hover:underline'
-                                >
-                                    Forgot your password?
-                                </a>
+        <div className="flex flex-col items-center w-full justify-center p-6 md:p-10 gap-6">
+            <Card className="w-full max-w-xl mx-auto">
+                <CardHeader>
+                    <CardTitle>Login to your account</CardTitle>
+                    <CardDescription>Enter your email and password below to login to your account.</CardDescription>
+                </CardHeader>
+                <form onSubmit={handleSubmit}>
+                    <CardContent>
+                        <div className="flex flex-col gap-6">
+                            <div className='grid gap-2'>
+                                <Label htmlFor='email'>Email</Label>
+                                <Input
+                                    name="email"
+                                    id='email'
+                                    type='email'
+                                    placeholder='johndoe@example.com'
+                                    required
+                                />
                             </div>
-                            <Input name="password" id='password' type='password' required/>
+                            <div className='grid gap-2'>
+                                <div className='flex items-center'>
+                                    <Label htmlFor='password'>Password</Label>
+                                    <a
+                                        href='#'
+                                        className='ml-auto inline-block text-sm underline-offset-4 hover:underline'
+                                    >
+                                        Forgot your password?
+                                    </a>
+                                </div>
+                                <Input name="password" id='password' type='password' required/>
+                            </div>
                         </div>
-                    </div>
-                </CardContent>
-                <CardFooter className='flex-col gap-2'>
-                    <Button type='submit' className='w-full'>
-                        Login
-                    </Button>
-                </CardFooter>
-            </form>
-        </Card>
+                    </CardContent>
+                    <CardFooter className='flex-col gap-2'>
+                        <Button type='submit' className='w-full'>
+                            Login
+                        </Button>
+                    </CardFooter>
+                </form>
+            </Card>
+        </div>
     )
 }

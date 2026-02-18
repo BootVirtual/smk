@@ -19,7 +19,7 @@ import {
     DropdownMenuLabel,
     DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu"
-import { EllipsisVertical, Home, LogOutIcon, Megaphone, User2 } from "lucide-react";
+import { EllipsisVertical, Home, LogOutIcon, Megaphone, School, User2 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 
 function ProfileButton() {
@@ -103,7 +103,16 @@ export function AppSidebar() {
     return (
         <Sidebar>
             <SidebarHeader>
-                <span>Demo School - SMK</span>
+                <SidebarMenu>
+                    <SidebarMenuItem>
+                        <SidebarMenuButton asChild>
+                            <a href="/">
+                                <School className="!size-5"/>
+                                <span className="text-base font-semibold">Demo School - SMK</span>
+                            </a>
+                        </SidebarMenuButton>
+                    </SidebarMenuItem>
+                </SidebarMenu>
             </SidebarHeader>
             <SidebarContent>
                 <SidebarGroup>

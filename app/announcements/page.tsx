@@ -7,13 +7,31 @@ import {
     EmptyDescription,
     EmptyMedia,
     EmptyTitle
-} from "@/components/ui/empty"
+} from "@/components/ui/empty";
 import { Megaphone } from "lucide-react";
+import {
+    Card,
+    CardContent,
+    CardHeader
+} from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function AnnouncementsPage() {
     const { announcements, loading } = useAnnouncements();
 
-    if(announcements.length == 0){
+    if(loading) {
+        return (
+            <Card className="w-[620px]">
+                <CardHeader>
+                    <Skeleton className="h-4 w-2/3" />
+                    <Skeleton className="h-3 w-1/3" />
+                </CardHeader>
+                <CardContent>
+                    <Skeleton className="aspect-video w-full" />
+                </CardContent>
+            </Card>
+        )
+    } else if(announcements.length == 0) {
         return (
             <Empty>
                 <EmptyTitle>
@@ -30,15 +48,9 @@ export default function AnnouncementsPage() {
             </Empty>
         )
     }
-    if(loading) {
-        // TODO
-        return (
-            <h1>Loading...</h1>
-        )
-    }
 
     return (
-        <div className="space-y-4">
+        <div className="flex flex-1 flex-col gap-4 px-6 py-4 md:gap-6 md:py-6 w-full max-w">
             {announcements.map((a) => (
                 <AnnouncementCard key={a.$id} announcement={a} />
             ))}

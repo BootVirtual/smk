@@ -14,20 +14,21 @@ interface Props {
 };
 
 export function AnnouncementCard({ announcement }: Props){
+    console.log(announcement.author);
     return (
-        <Card>
+        <Card className="mx-auto w-full max-w">
             <CardHeader>
                 <CardTitle>{announcement.title}</CardTitle>
+                <CardDescription>
+                    Posted on {new Date(announcement.$createdAt).toLocaleString(undefined, {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                        hour: "2-digit",
+                        minute: "2-digit"
+                    })} by {announcement.author.fullName}.
+                </CardDescription>
             </CardHeader>
-            <CardDescription>
-                Posted on {new Date(announcement.$createdAt).toLocaleString(undefined, {
-                    year: "numeric",
-                    month: "short",
-                    day: "numeric",
-                    hour: "2-digit",
-                    minute: "2-digit"
-                })} by {announcement.author.fullName}
-            </CardDescription>
             <CardContent>
                 {announcement.content}
             </CardContent>
