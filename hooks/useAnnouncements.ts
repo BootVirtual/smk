@@ -8,11 +8,12 @@ import { useEffect, useState } from "react";
 const DATABASE_ID = process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID!;
 const ANNOUNCEMENTS_TABLE_ID = process.env.NEXT_PUBLIC_APPWRITE_ANNOUNCEMENTS_TABLE_ID!;
 const USERS_TABLE_ID = process.env.NEXT_PUBLIC_APPWRITE_USERS_TABLE_ID!;
+const PARENTS_TABLE_ID = process.env.NEXT_PUBLIC_APPWRITE_PARENTS_TABLE_ID!;
 
-export interface User extends Models.Row {
+export interface DBUser extends Models.Row {
     role: "student" | "parent" | "teacher"
     fullName: string
-}
+};
 
 export interface AnnouncementRaw extends Models.Row {
     title: string
@@ -54,7 +55,7 @@ export function useAnnouncements() {
 
                 const authorIds = [...new Set(res.rows.map(a => a.author))];
                 
-                const authorRows = await tablesDB.listRows<User>({
+                const authorRows = await tablesDB.listRows<DBUser>({
                     databaseId: DATABASE_ID,
                     tableId: USERS_TABLE_ID,
                     queries: [Query.equal("$id", authorIds)]
@@ -73,8 +74,10 @@ export function useAnnouncements() {
                 const visibleAnnouncements = expandedRes.filter(a => {
                     return a.targetClasses.some((classId) =>
                         user?.classIds.includes(classId)
-                    )
+                    );
                 });
+
+                console.log(user?.classIds);
 
                 setAnnouncements(visibleAnnouncements);
             } catch (e) {

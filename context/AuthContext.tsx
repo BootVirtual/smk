@@ -67,7 +67,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
                 const parentRow = await tablesDB.getRow({
                     databaseId: DATABASE_ID,
                     tableId: PARENTS_TABLE_ID,
-                    rowId: currentUser.$id
+                    rowId: currentUser.$id,
+                    queries: [Query.select(["*", "students.*"])]
                 });
 
                 try{
@@ -80,11 +81,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
                 const assignments = await tablesDB.listRows({
                     databaseId: DATABASE_ID,
                     tableId: CLASSESASSIGNMENTS_TABLE_ID,
-                    queries: [Query.equal("teacher", currentUser.$id)]
+                    queries: [Query.equal("teacher", currentUser.$id), Query.select(["*", "class.*"])]
                 });
 
                 try {
-                    classIds = assignments.rows.flatMap((assignment: any) => assignment.class);
+                    const classes = assignments.rows.flatMap((assignment: any) => assignment.class);
+                    
+                    classIds = classes.map((c: any) => c.$id);
                 } catch (e) {
                     console.log("Error when parsing teacher's classes");
                     console.log(e);
