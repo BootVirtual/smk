@@ -50,7 +50,7 @@ export function useAnnouncements() {
                 const res = await tablesDB.listRows<AnnouncementRaw>({
                     databaseId: DATABASE_ID,
                     tableId: ANNOUNCEMENTS_TABLE_ID,
-                    queries: [Query.contains("targetRoles", user.role), Query.orderDesc("$createdAt")]
+                    queries: [Query.contains("targetRoles", user!.role), Query.orderDesc("$createdAt")]
                 });
 
                 const authorIds = [...new Set(res.rows.map(a => a.author))];
