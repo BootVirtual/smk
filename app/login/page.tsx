@@ -6,7 +6,7 @@ import { AuthForm } from "@/components/AuthForm";
 export default function LoginPage() {
     const { login } = useAuth();
 
-    const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
+    const handleLogin = async (event: React.SubmitEvent<HTMLFormElement>) => {
         event.preventDefault();
         const form = event.target as HTMLFormElement;
         const formData = new FormData(form);

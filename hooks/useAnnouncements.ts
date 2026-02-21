@@ -62,7 +62,6 @@ export function useAnnouncements() {
 
                 const authorMap = Object.fromEntries(authorRows.rows.map(u => [u.$id, u.fullName]));
 
-
                 const expandedRes = res.rows.map(a => ({
                     ...a,
                     author: {

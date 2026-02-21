@@ -5,10 +5,11 @@ import { useAnnouncements } from "@/hooks/useAnnouncements";
 import {
     Empty,
     EmptyDescription,
+    EmptyHeader,
     EmptyMedia,
     EmptyTitle
 } from "@/components/ui/empty";
-import { Megaphone, UserRoundKey } from "lucide-react";
+import { Megaphone, Plus } from "lucide-react";
 import {
     Card,
     CardContent,
@@ -16,16 +17,39 @@ import {
 } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useAuth } from "@/hooks/useAuth";
-import { useRouter } from "next/navigation";
+import { User } from "@/context/AuthContext";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogTrigger } from "@/components/ui/dialog";
+import { AnnouncementForm } from "@/components/AnnouncementForm";
+import { SchoolClass, useClasses } from "@/hooks/useClasses";
+
+export function NewAnnouncementButton(user: User | null, classes: SchoolClass[], loading: boolean) {
+    if(user?.role === "teacher"){
+        if(!loading) {
+            return (
+                <Dialog>
+                    <form>
+                        <DialogTrigger asChild>
+                            <Button><Plus /> New Announcement</Button>
+                        </DialogTrigger>
+                    </form>
+                    <AnnouncementForm classes={classes} />
+                </Dialog>
+            );
+        } else {
+            return (
+                <Skeleton className="h-4 w-1/4" />
+            );
+        }
+    }
+}
 
 export default function AnnouncementsPage() {
     const { announcements, loading } = useAnnouncements();
     const { user } = useAuth();
-    const router = useRouter();
+    const { classes, loading: classLoading } = useClasses();
 
-    if(!user){
-        router.push('/login');
-    } else if(loading) {
+    if(loading) {
         return (
             <Card className="w-[620px]">
                 <CardHeader>
@@ -39,24 +63,28 @@ export default function AnnouncementsPage() {
         )
     } else if(announcements.length == 0) {
         return (
-            <Empty>
-                <EmptyTitle>
-                    <EmptyMedia variant="icon">
-                        <Megaphone />
-                    </EmptyMedia>
-                    <EmptyTitle>
-                        No Announcements Yet
-                    </EmptyTitle>
-                    <EmptyDescription>
-                        You haven't received any important communications yet. Good news?
-                    </EmptyDescription>
-                </EmptyTitle>
-            </Empty>
+            <div>
+                {NewAnnouncementButton(user, classes, classLoading)}
+                <Empty>
+                    <EmptyHeader>
+                        <EmptyMedia variant="icon">
+                            <Megaphone />
+                        </EmptyMedia>
+                        <EmptyTitle>
+                            No Announcements Yet
+                        </EmptyTitle>
+                        <EmptyDescription>
+                            You haven't received any important communications yet. Good news?
+                        </EmptyDescription>
+                    </EmptyHeader>
+                </Empty>
+            </div>
         )
     }
 
     return (
         <div className="flex flex-1 flex-col gap-4 px-6 py-4 md:gap-6 md:py-6 w-full max-w">
+            {NewAnnouncementButton(user, classes, classLoading)}
             {announcements.map((a) => (
                 <AnnouncementCard key={a.$id} announcement={a} />
             ))}

@@ -14,7 +14,6 @@ interface Props {
 };
 
 export function AnnouncementCard({ announcement }: Props){
-    console.log(announcement.author);
     return (
         <Card className="mx-auto w-full max-w">
             <CardHeader>

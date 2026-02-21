@@ -16,7 +16,7 @@ const USERS_TABLE_ID = process.env.NEXT_PUBLIC_APPWRITE_USERS_TABLE_ID!;
 const PARENTS_TABLE_ID = process.env.NEXT_PUBLIC_APPWRITE_PARENTS_TABLE_ID!;
 const CLASSESASSIGNMENTS_TABLE_ID = process.env.NEXT_PUBLIC_APPWRITE_CLASSASSIGNMENTS_TABLE_ID!;
 
-type User = {
+export type User = {
     id: string
     email: string
     fullName: string
