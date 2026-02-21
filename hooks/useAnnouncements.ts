@@ -1,7 +1,7 @@
 "use client";
 
 import { tablesDB } from "@/lib/appwrite";
-import { Query, Models } from "appwrite";
+import { Query, Models, ID } from "appwrite";
 import { useAuth } from "@/hooks/useAuth";
 import { useEffect, useState } from "react";
 
@@ -87,5 +87,26 @@ export function useAnnouncements() {
         fetchAnnouncements()
     }, [user, authLoading]);
 
-    return { announcements, loading };
+    const post = async (announcement: AnnouncementRaw): Promise<void> => {
+        const promise = tablesDB.createRow({
+            databaseId: DATABASE_ID,
+            tableId: ANNOUNCEMENTS_TABLE_ID,
+            rowId: ID.unique(),
+            data: {
+                title: announcement.title,
+                content: announcement.content,
+                targetRoles: announcement.targetRoles,
+                targetClasses: announcement.targetClasses,
+                author: announcement.author
+            }
+        });
+
+        promise.then(function (response) {
+            console.log(response);
+        }, function (error) {
+            console.log(error);
+        });
+    }
+
+    return { announcements, loading, post };
 }

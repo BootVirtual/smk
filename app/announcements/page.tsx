@@ -9,7 +9,7 @@ import {
     EmptyMedia,
     EmptyTitle
 } from "@/components/ui/empty";
-import { Megaphone, Plus } from "lucide-react";
+import { Megaphone } from "lucide-react";
 import {
     Card,
     CardContent,
@@ -18,8 +18,6 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { useAuth } from "@/hooks/useAuth";
 import { User } from "@/context/AuthContext";
-import { Button } from "@/components/ui/button";
-import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { AnnouncementForm } from "@/components/AnnouncementForm";
 import { SchoolClass, useClasses } from "@/hooks/useClasses";
 
@@ -27,14 +25,7 @@ export function NewAnnouncementButton(user: User | null, classes: SchoolClass[],
     if(user?.role === "teacher"){
         if(!loading) {
             return (
-                <Dialog>
-                    <form>
-                        <DialogTrigger asChild>
-                            <Button><Plus /> New Announcement</Button>
-                        </DialogTrigger>
-                    </form>
-                    <AnnouncementForm classes={classes} />
-                </Dialog>
+                <AnnouncementForm classes={classes} />
             );
         } else {
             return (
